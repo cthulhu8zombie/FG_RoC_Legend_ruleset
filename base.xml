@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root version="3.0" release="1" logo="logo.png">
+  <announcement text="RoC Legend ruleset V0.0.0 for Fantasy Grounds" font="emotefont" icon="rulesetlogo_CoreRPG" />
+  <description>
+    <text>RoC Legend</text>
+    <author>Cthulhu8Zombie</author>
+    <website>http://www.ruleofcool.com/</website>
+  </description>
+
+  <!-- Layers -->
+  <importruleset source="CoreRPG" />
+</root>
