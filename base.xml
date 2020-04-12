@@ -9,4 +9,7 @@
 
   <!-- Layers -->
   <importruleset source="CoreRPG" />
+
+  <!-- Strings -->
+  <includefile source="strings/strings_RocLegend.xml" />
 </root>
