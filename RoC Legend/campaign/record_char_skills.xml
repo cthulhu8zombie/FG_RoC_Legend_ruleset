@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!--
+  Please see the license.html file included with this distribution for
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_skills">
+		<sheetdata>
+			<frame_char name="skillframe">
+				<bounds>15,0,-29,-1</bounds>
+			</frame_char>
+
+			<genericcontrol name="quicklistlabelicon">
+				<anchored to="skillframe" position="insidetopleft" offset="22,14" width="10" height="10" />
+				<icon>char_quicklist</icon>
+				<tooltip textres="char_tooltip_skillshowmini" />
+			</genericcontrol>
+			<genericcontrol name="encumbrancelabelicon">
+				<anchored to="skillframe" position="insidetopleft" offset="38,14" width="10" height="10" />
+				<icon>char_encumbrance</icon>
+				<tooltip textres="char_tooltip_skillclass" />
+			</genericcontrol>
+			<label name="skillnamelabel">
+				<anchored to="skillframe" position="insidetopleft" offset="85,10" />
+				<static textres="char_label_skillname" />
+			</label>
+			<genericcontrol name="rightanchor">
+				<anchored to="skillframe" width="0" height="0">
+					<top offset="10" />
+					<right offset="-15" />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<genericcontrol name="idelete_header">
+				<anchored to="rightanchor" width="20" height="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<disabled />
+				<invisible />
+			</genericcontrol>
+			<label name="skilltotallabel">
+				<anchored to="rightanchor" width="44">
+					<top />
+					<right anchor="left" relation="relative" offset="-27" />
+				</anchored>
+				<static textres="char_label_skilltotal" />
+				<center />
+			</label>
+			<label name="skillmisclabel">
+				<anchored to="rightanchor" width="32">
+					<top />
+					<right anchor="left" relation="relative" offset="-15" />
+				</anchored>
+				<static textres="char_label_skillmisc" />
+				<center />
+			</label>
+			<label name="skilltrainedlabel">
+				<anchored to="rightanchor" width="32">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<static textres="char_label_skilltrained" />
+				<tooltip textres="char_tooltip_skilltrained" />
+				<center />
+			</label>
+			<label name="skillabilitylabel">
+				<anchored to="rightanchor" width="69">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<center />
+				<static textres="char_label_skillability" />
+			</label>
+
+			<windowlist name="skilllist">
+				<anchored to="skillframe" position="over" offset="-15,-15">
+					<top offset="40" />
+				</anchored>
+				<child></child>
+				<child><backcolor>1A40301E</backcolor></child>
+				<datasource>.skilllist</datasource>
+				<class>char_skill</class>
+				<sortby>
+					<field desc="true">skill_group</field>
+					<control>label</control>
+				</sortby>
+				<script file="campaign/scripts/char_skilllist.lua" />
+			</windowlist>
+			<scrollbar name="skilllist_scrollbar">
+				<anchored to="skilllist" />
+				<target>skilllist</target>
+			</scrollbar>
+
+			<button_iedit name="skilllist_iedit">
+				<anchored to="skilllist" position="aboveright" offset="5,10" />
+				<target>skilllist</target>
+			</button_iedit>
+			<button_iadd name="skilllist_iadd">
+				<anchored to="skilllist_iedit" position="lefthigh" offset="5,0" />
+				<target>skilllist</target>
+				<tooltip textres="char_tooltip_skilladd" />
+			</button_iadd>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="char_skill">
+		<margins control="0,0,0,2" />
+		<script file="campaign/scripts/char_skill.lua" />
+		<sheetdata>
+			<button_checkbox name="showonminisheet">
+				<bounds>6,8,12,12</bounds>
+				<default>1</default>
+			</button_checkbox>
+			<stringu name="skill_group">
+				<bounds>22,2,12,20</bounds>
+				<displaysign  merge="delete" />
+				<default>C</default>
+			</stringu>
+
+			<genericcontrol name="rightanchor">
+				<anchored width="0" height="0">
+					<top />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored width="20" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_idelete>
+			<genericcontrol name="idelete_spacer">
+				<anchored width="20" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<disabled />
+				<invisible />
+			</genericcontrol>
+			<linkfield name="shortcut">
+				<anchored width="20" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-2" />
+				</anchored>
+				<allowdrop />
+				<description field="label" />
+			</linkfield>
+			<number_charskilltotal name="total">
+				<anchored width="44" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</number_charskilltotal>
+			<number_charskillfield name="misc">
+				<anchored width="32" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-15" />
+				</anchored>
+				<tabtarget prev="label" />
+			</number_charskillfield>
+			<button_checkbox name="trained">
+				<anchored width="32" height="12">
+					<top offset="6" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_checkbox>
+			<number_charskillfield_static name="stat">
+				<anchored width="32" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<script>
+					function update(statname)
+						setValue(DB.getValue(window.getDatabaseNode(), "...abilities." .. statname .. ".bonus", 0));
+					end
+				</script>
+			</number_charskillfield_static>
+			<cycler_skillability name="statname">
+				<anchored width="32" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<script>
+					function onValueChanged()
+						window.onStatUpdate();
+					end
+				</script>
+			</cycler_skillability>
+
+			<stringu name="label">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="40" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<tabtarget next="misc" />
+			</stringu>
+		</sheetdata>
+	</windowclass>
+</root>

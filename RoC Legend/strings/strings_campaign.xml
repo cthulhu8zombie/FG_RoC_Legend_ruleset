@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!--
+  Please see the license.html file included with this distribution for
+  attribution and copyright information.
+-->
+
+<root>
+	<string name="btn_text_edit">EDIT</string>
+
+	<!-- Characters -->
+	<string name="char_label_abilityscore">Score</string>
+	<string name="char_label_abilitybonus">Bonus</string>
+	<string name="char_label_abilitybase">Base</string>
+	<string name="char_label_abilityrace">Race</string>
+
+	<string name="char_label_ability_charisma">Charisma</string>
+	<string name="char_label_ability_constitution">Constitution</string>
+	<string name="char_label_ability_dexterity">Dexterity</string>
+	<string name="char_label_ability_intelligence">Intelligence</string>
+	<string name="char_label_ability_strength">Strength</string>
+	<string name="char_label_ability_wisdom">Wisdom</string>
+
+	<string name="char_label_class">CLASS</string>
+	<string name="char_label_custom">Custom</string>
+	<string name="char_label_level">LEVEL</string>
+
+	<string name="char_label_kom">KOM</string>
+	<string name="char_label_kdm">KDM</string>
+
+	<string name="char_label_hp">HP</string>
+	<string name="char_label_hp_class">Class</string>
+	<string name="char_label_hp_level">Level + 1</string>
+	<string name="char_label_hp_max">Max HP</string>
+	<string name="char_label_hp_per_level">Per Level</string>
+
+	<string name="char_label_hp_reduction">HP Reduction</string>
+	<string name="char_label_hp_temp">Temp HP</string>
+	<string name="char_label_hp_damage">Damage</string>
+	<string name="char_label_hp_remaining">Remaining</string>
+
+	<string name="char_label_misc">Misc</string>
+
+	<string name="edit_hp">Edit HP</string>
+</root>
