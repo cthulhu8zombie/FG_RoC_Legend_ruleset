@@ -42,4 +42,15 @@
 	<string name="char_label_misc">Misc</string>
 
 	<string name="edit_hp">Edit HP</string>
+
+	<string name="kom">KOM</string>
+	<string name="kdm">KDM</string>
+	<string name="awareness">Awareness</string>
+	<string name="bluff">Bluff</string>
+	<string name="diplomacy">Diplomacy</string>
+	<string name="intimidate">Intimidate</string>
+	<string name="perception">Perception</string>
+
+	<string name="class_label_save_poor">Poor</string>
+
 </root>

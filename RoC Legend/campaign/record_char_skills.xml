@@ -9,34 +9,35 @@
 	<windowclass name="charsheet_skills">
 		<sheetdata>
 			<frame_char name="skillframe">
-				<bounds>15,0,-29,-1</bounds>
+				<bounds>15,0,-30,-3</bounds>
 			</frame_char>
 
-			<genericcontrol name="quicklistlabelicon">
-				<anchored to="skillframe" position="insidetopleft" offset="22,14" width="10" height="10" />
+			<genericcontrol>
+				<anchored to="skillframe" position="insidetopleft" offset="17,15" width="10" height="10" />
 				<icon>char_quicklist</icon>
 				<tooltip textres="char_tooltip_skillshowmini" />
 			</genericcontrol>
-			<genericcontrol name="encumbrancelabelicon">
-				<anchored to="skillframe" position="insidetopleft" offset="38,14" width="10" height="10" />
+			<genericcontrol>
+				<anchored to="skillframe" position="insidetopleft" offset="33,15" width="10" height="10" />
 				<icon>char_encumbrance</icon>
 				<tooltip textres="char_tooltip_skillclass" />
 			</genericcontrol>
-			<label name="skillnamelabel">
+			<label>
 				<anchored to="skillframe" position="insidetopleft" offset="85,10" />
 				<static textres="char_label_skillname" />
 			</label>
+
 			<genericcontrol name="rightanchor">
 				<anchored to="skillframe" width="0" height="0">
 					<top offset="10" />
-					<right offset="-15" />
+					<right offset="-25" />
 				</anchored>
 				<invisible />
 			</genericcontrol>
 			<genericcontrol name="idelete_header">
 				<anchored to="rightanchor" width="20" height="20">
 					<top />
-					<right anchor="left" relation="relative" offset="-5" />
+					<right anchor="left" relation="relative" offset="-2" />
 				</anchored>
 				<disabled />
 				<invisible />
@@ -67,12 +68,20 @@
 				<center />
 			</label>
 			<label name="skillabilitylabel">
-				<anchored to="rightanchor" width="69">
+				<anchored to="rightanchor" width="77">
 					<top />
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<center />
 				<static textres="char_label_skillability" />
+			</label>
+			<label>
+				<anchored to="rightanchor" width="42">
+					<top />
+					<right anchor="left" relation="relative" offset="0" />
+				</anchored>
+				<center />
+				<static textres="char_label_skillranks" />
 			</label>
 
 			<windowlist name="skilllist">
@@ -130,13 +139,13 @@
 			<button_idelete name="idelete">
 				<anchored width="20" height="20">
 					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-2" />
 				</anchored>
 			</button_idelete>
 			<genericcontrol name="idelete_spacer">
 				<anchored width="20" height="20">
 					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-2" />
 				</anchored>
 				<disabled />
 				<invisible />
@@ -179,17 +188,20 @@
 					end
 				</script>
 			</number_charskillfield_static>
-			<cycler_skillability name="statname">
-				<anchored width="32" height="20">
+			<cycler_charskillability name="statname">
+				<anchored width="40" height="20">
 					<top offset="2" />
 					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
 				</anchored>
+				<stateframe>
+					<hover name="sheetfocus" offset="5,5,5,5" />
+				</stateframe>
 				<script>
 					function onValueChanged()
 						window.onStatUpdate();
 					end
 				</script>
-			</cycler_skillability>
+			</cycler_charskillability>
 
 			<stringu name="label">
 				<anchored height="20">

@@ -7,7 +7,7 @@
 		<website></website>
 	</description>
 
-	<importruleset source="4E" />
+	<importruleset source="3.5E" />
 
 	<importinfo>
 		<acceptfrom ruleset="CoreRPG" />
@@ -23,14 +23,17 @@
 	<includefile source="strings/strings_campaign.xml" />
 
 	<!-- Campaign Records -->
+	<includefile source="campaign/template_campaign.xml" />
 	<includefile source="campaign/template_char.xml" />
+
 	<includefile source="campaign/record_char.xml" />
 	<includefile source="campaign/record_char_main.xml" />
 	<includefile source="campaign/record_char_custom.xml" />
 	<includefile source="campaign/record_char_skills.xml" />
+	<includefile source="campaign/record_table.xml" />
+
 	<script name="CharManager" file="campaign/scripts/manager_char.lua" />
 
 	<!-- High-level scripts -->
 	<script name="DataCommon" file="scripts/data_common.lua" />
-
 </root>

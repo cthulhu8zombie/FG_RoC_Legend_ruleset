@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!--
+	Please see the license.html file included with this distribution for
+	attribution and copyright information.
+-->
+
+<root>
+	<template name="cycler_ability">
+		<button_stringcycler>
+			<frame mergerule="replace" name="fielddark" offset="7,5,7,5" />
+			<stateframe mergerule="replace">
+				<hover name="fieldfocus" offset="7,5,7,5" />
+			</stateframe>
+			<parameters>
+				<defaultlabelres mergerule="replace">base</defaultlabelres>
+				<labelsres>kom|kdm|str|con|dex|int|wis|cha</labelsres>
+				<values>kom|kdm|strength|constitution|dexterity|intelligence|wisdom|charisma</values>
+			</parameters>
+		</button_stringcycler>
+	</template>
+</root>
