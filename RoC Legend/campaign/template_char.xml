@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!--
+	Please see the license.html file included with this distribution for
+	attribution and copyright information.
+-->
+
+<root>
+
+	<template name="number_labeled">
+		<numberfield>
+			<font>sheettext</font>
+			<lineoffset default="on">1</lineoffset>
+			<script>
+				labelwidget = nil;
+
+				function onInit()
+					if labelres then
+						labelwidget = addTextWidget("sheetlabelinline", string.upper(Interface.getString(labelres[1])));
+					else
+						labelwidget = addTextWidget("sheetlabelinline", string.upper(label[1]));
+					end
+					if labelwidget then
+						local w,h = labelwidget.getSize();
+						labelwidget.setPosition("bottomleft", w/2, h/2-4);
+					end
+				end
+			</script>
+		</numberfield>
+	</template>
+
+	<template name="number_char_ability_score">
+		<basicnumber>
+			<anchored position="belowleft" offset="0,10" width="32" height="22" />
+			<default>10</default>
+		</basicnumber>
+	</template>
+
+	<template name="number_char_ability_score_calc">
+	</template>
+
+	<template name="number_char_ability_mod">
+		<basicnumber>
+			<anchored position="right" offset="15,0" width="24" />
+			<default>0</default>
+		</basicnumber>
+	</template>
+
+	<template name="string_char_ability_label">
+		<label>
+			<anchored position="lefthigh" width="120" height="24" />
+			<static />
+		</label>
+	</template>
+
+	<template name="number_char_bonus">
+		<number_modifier>
+			<frame name="fieldlight" offset="7,5,7,5" />
+			<showemptywidget />
+			<anchored position="right" offset="25,0" width="30" />
+			<rollable />
+			<displaysign />
+			<script><![CDATA[
+				function action(draginfo)
+					local ability = target[1]
+					local nodeWin = window.getDatabaseNode();
+					local nCurrentBonus = DB.getValue(nodeWin, "abilities." .. ability .. ".bonus", 10);
+					local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
+
+					local description = "[ABILITY] " .. StringManager.capitalize(ability) .. " check"
+					local rRoll = { sType = "ability", sDesc = description, aDice = { "d20" }, nMod = nCurrentBonus };
+
+					if User.isHost() and CombatManager.isCTHidden(ActorManager.getCTNode(rActor)) then
+						rRoll.bSecret = true;
+					end
+
+					ActionsManager.performAction(draginfo, rActor, rRoll);
+
+					return true;
+				end
+
+				function onDragStart(button, x, y, draginfo)
+					return action(draginfo);
+				end
+
+				function onDoubleClick(x,y)
+					return action();
+				end
+			]]></script>
+		</number_modifier>
+	</template>
+
+	<template name="number_char_ability_bonus">
+		<number_char_bonus>
+			<script><![CDATA[
+				function onInit()
+					local ability = target[1]
+					addSource("abilities." .. ability .. ".score");
+					super.onInit();
+				end
+
+				function onSourceUpdate()
+					local ability = target[1]
+					local nodeWin = window.getDatabaseNode();
+
+					local nCurrentScore = DB.getValue(nodeWin, "abilities." .. ability .. ".score", 10);
+
+					setValue(math.floor((nCurrentScore - 10) / 2) + getModifier());
+				end
+			]]></script>
+		</number_char_bonus>
+	</template>
+
+	<template name="number_char_key_bonus">
+		<number_char_bonus>
+			<script><![CDATA[
+				function onInit()
+					local ability = target[1]
+					addSource("abilities." .. ability .. ".ability");
+					for _,v in ipairs(DataCommon.abilities) do
+						addSource("abilities." .. string.lower(v) .. ".bonus");
+					end
+
+					super.onInit();
+				end
+
+				function onSourceUpdate()
+					local ability = target[1]
+					local nodeWin = window.getDatabaseNode();
+
+					local abbrev = DB.getValue(nodeWin, "abilities." .. ability .. ".ability", "");
+					if abbrev == "" then
+						return
+					end
+					ability = DataCommon.ability_stol[string.upper(abbrev)]
+					local nBonus = DB.getValue(nodeWin, "abilities." .. ability .. ".bonus", 0);
+
+					setValue(nBonus + getModifier());
+				end
+			]]></script>
+		</number_char_bonus>
+	</template>
+
+	<template name="combobox_char_ability_select">
+		<combobox>
+			<frame mergerule="replace" name="fieldlight" offset="7,5,7,5" />
+			<anchored position="belowright" offset="0,10" width="40" height="22" />
+			<script><![CDATA[
+				function onInit()
+					super.onInit();
+					addItems(DataCommon.abilities_abbrv);
+				end
+				function onValueChanged()
+
+				end
+			]]></script>
+		</combobox>
+	</template>
+
+	<template name="linkcontrol_edit_btn">
+		<windowreferencecontrol>
+			<icon normal="button_edit_text" pressed="button_edit_text_down" empty="button_blank" />
+			<description textres="btn_text_edit" />
+		</windowreferencecontrol>
+	</template>
+
+	<template name="number_charskilltotal">
+		<number_linked>
+			<frame name="fieldlight" offset="7,5,7,5" />
+			<displaysign />
+			<rollable />
+			<hideonvalue>0</hideonvalue>
+			<source>
+				<name>stat</name>
+				<op>+</op>
+			</source>
+			<source>
+				<name>trained</name>
+				<op>+</op>
+			</source>
+			<source>
+				<name>misc</name>
+				<op>+</op>
+			</source>
+			<script>
+				function onSourceValue(source, sourcename)
+					if sourcename == "trained" then
+						if source.getValue() == 1 then
+							local nodeWin = window.getDatabaseNode();
+							local level = DB.getValue(nodeWin, "...level", 0);
+							return level;
+						end
+						return 0;
+					end
+
+					return super.onSourceValue(source, sourcename);
+				end
+
+				function action(draginfo)
+					local nodeWin = window.getDatabaseNode();
+					if nodeWin then
+						local rActor = ActorManager.getActor("pc", nodeWin.getChild("..."));
+						local sLabel = DB.getValue(nodeWin, "label", "");
+						local sStat = DB.getValue(nodeWin, "statname", "");
+						ActionSkill.performRoll(draginfo, rActor, sLabel, getValue(), sStat);
+					end
+
+					return true;
+				end
+
+				function onDragStart(button, x, y, draginfo)
+					return action(draginfo);
+				end
+
+				function onDoubleClick(x,y)
+					return action();
+				end
+			</script>
+		</number_linked>
+	</template>
+
+</root>

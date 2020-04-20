@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!--
+  Please see the license.html file included with this distribution for
+  attribution and copyright information.
+-->
+
+<root>
+
+	<icon name="button_blank" file="graphics/buttons/button_blank.png" />
+	<icon name="button_edit_text" file="graphics/buttons/button_edit.png" />
+	<icon name="button_edit_text_down" file="graphics/buttons/button_edit_down.png" />
+
+</root>
