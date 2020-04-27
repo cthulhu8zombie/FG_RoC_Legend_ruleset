@@ -15,8 +15,6 @@ abilities = {
 	"intelligence",
 	"wisdom",
 	"charisma",
-	"kom",
-	"kdm"
 };
 
 ability_ltos = {
@@ -69,6 +67,50 @@ saves = {
 	good = { 2, 3, 4, 4, 5, 6, 6, 7, 8,  8,  9, 10, 10, 11, 12, 12, 13, 14, 14, 15 },
 	poor = { 0, 1, 1, 2, 2, 3, 3, 4, 4,  5,  5,  6,  6,  7,  7,  8,  8,  9,  9, 10 }
 }
+
+-- Tracks
+track_progression = {
+	fast   = { 1, 3, 6,  9, 12, 15, 18 },
+	medium = { 1, 4, 7, 10, 13, 16, 19 },
+	slow   = { 2, 5, 8, 11, 14, 17, 20 },
+}
+track_progression_circle_count = {
+	fast   = { 1, 1, 2, 2, 2, 3, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 7, 7, 7 },
+	medium = { 1, 1, 1, 2, 2, 2, 3, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 7, 7 },
+	slow   = { 0, 1, 1, 1, 2, 2, 2, 3, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 7 },
+}
+
+-- Magic items
+magic_items_by_type = {
+	normal = {
+		lesser   = { 1, 4, 7, 11, 19 },
+		greater  = { 5, 8, 13, 16 },
+		relic    = { 10, 14 },
+		artifact = { 17 },
+	},
+	full_buy = {
+		lesser   = { 6 },
+		greater  = { 11 },
+		relic    = { 17 },
+		artifact = {},
+	},
+}
+
+magic_item_count_by_type = {
+	normal = {
+		lesser   = { 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5 },
+		greater  = { 0, 0, 0, 0, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 4 },
+		relic    = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2 },
+		artifact = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 },
+	},
+	full_buy = {
+		lesser   = { 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+		greater  = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+		relic    = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 },
+		artifact = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	},
+}
+
 
 -- Values for wound comparison
 healthstatusfull = "healthy";

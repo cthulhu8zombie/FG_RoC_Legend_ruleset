@@ -242,4 +242,313 @@
 		</number_linked>
 	</template>
 
+	<template name="number_charabilitymod">
+		<simplenumber>
+			<readonly />
+			<displaysign />
+			<disabled />
+			<script><![CDATA[
+				local sLocalAbility = "";
+				local nodeLocal = nil;
+				local nodeCreature = nil;
+
+				function updateAbility(sCharRelative, sAbility)
+					if sLocalAbility == sAbility then
+						return;
+					end
+					if nodeLocal then
+						nodeLocal.onUpdate = function () end;
+						nodeLocal = nil;
+						nodeCreature = nil;
+					end
+
+					if sAbility ~= "" then
+						local nodeSpellClass = window.getDatabaseNode();
+						nodeCreature = nodeSpellClass.getChild(sCharRelative);
+						local nodeParent = nodeCreature.getParent();
+
+						if ActorManager.isPC(nodeCreature) then
+							if StringManager.contains(DataCommon.abilities, sAbility) then
+								nodeLocal = nodeCreature.getChild("abilities." .. sAbility .. ".bonus");
+							elseif sAbility == "kom" or sAbility == "kdm" then
+								nodeLocal = nodeCreature.getChild("abilities." .. sAbility .. ".bonus");
+							elseif sAbility == "bab" then
+								nodeLocal = nodeCreature.getChild("attackbonus.base");
+							elseif sAbility == "level" then
+								nodeLocal = nodeCreature.getChild("level");
+							end
+						else
+							if StringManager.contains(DataCommon.abilities, sAbility) then
+								nodeLocal = nodeCreature.getChild(sAbility);
+							elseif sAbility == "kom" or sAbility == "kdm" then
+								nodeLocal = nodeCreature.getChild(sAbility);
+							elseif sAbility == "bab" then
+								nodeLocal = nodeCreature.getChild("babgrp");
+							elseif sAbility == "level" then
+								nodeLocal = nodeCreature.getChild("hd");
+							end
+						end
+
+						if nodeLocal then
+							nodeLocal.onUpdate = updateValue;
+							sLocalAbility = sAbility;
+						end
+					end
+
+					updateValue();
+				end
+
+				function updateValue()
+					if nodeLocal then
+						local nodeParent = nodeCreature.getParent();
+
+						if nodeParent.getName() == "charsheet" then
+							setValue(nodeLocal.getValue());
+						elseif nodeParent.getName() == "npc" then
+							local rActor = ActorManager.getActor("npc", nodeCreature);
+							local nValue = ActorManager2.getAbilityBonus(rActor, sLocalAbility);
+							setValue(nValue);
+						end
+					else
+						setValue(0);
+					end
+				end
+			]]></script>
+		</simplenumber>
+	</template>
+
+	<template name="number_chartotalac">
+		<number_chartotalwithability>
+			<description textres="ac" />
+			<modifiersize>mini</modifiersize>
+			<modifierfield>ac.sources.temporary</modifierfield>
+			<source><op>+</op><name>ac.sources.armor</name></source>
+			<source><op>+</op><name>ac.sources.shield</name></source>
+			<source><op>+</op><name>ac.sources.abilitymod</name></source>
+			<source><op>+</op><name>attackbonus.base</name></source>
+			<source><op>+</op><name>ac.sources.size</name></source>
+			<source><op>+</op><name>ac.sources.deflection</name></source>
+			<source><op>+</op><name>ac.sources.misc</name></source>
+			<ability><source>ac.sources.ability</source><default>kdm</default></ability>
+			<script>
+				function onSourceUpdate()
+					setValue(10 + calculateSources());
+				end
+			</script>
+		</number_chartotalwithability>
+	</template>
+
+	<template name="number_charsave">
+		<number_chartotal>
+			<rollable />
+			<displaysign />
+			<modifiersize>mini</modifiersize>
+			<script>
+				function onInit()
+					addSourceWithOp("saves." .. target[1] .. ".base", "+");
+					addSourceWithOp("saves." .. target[1] .. ".abilitymod", "+");
+					addSourceWithOp("saves." .. target[1] .. ".misc", "+");
+
+					super.onInit();
+				end
+
+				function action(draginfo)
+					local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
+					ActionSave.performRoll(draginfo, rActor, target[1]);
+					return true;
+				end
+
+				function onDragStart(button, x, y, draginfo)
+					return action(draginfo);
+				end
+
+				function onDoubleClick(x,y)
+					return action();
+				end
+			</script>
+		</number_chartotal>
+	</template>
+	<template name="number_charsavefort">
+		<number_charsave>
+			<modifierfield>saves.fortitude.temporary</modifierfield>
+			<target>fortitude</target>
+		</number_charsave>
+	</template>
+	<template name="number_charsaveref">
+		<number_charsave>
+			<modifierfield>saves.reflex.temporary</modifierfield>
+			<target>reflex</target>
+		</number_charsave>
+	</template>
+	<template name="number_charsavewill">
+		<number_charsave>
+			<modifierfield>saves.will.temporary</modifierfield>
+			<target>will</target>
+		</number_charsave>
+	</template>
+
+	<template name="number_charmeleetotal">
+		<number_charattacktotal>
+			<description><textres>char_tooltip_atkmelee</textres></description>
+			<modifierfield>attackbonus.melee.temporary</modifierfield>
+			<source><name>attackbonus.base</name><op>+</op></source>
+			<source><name>attackbonus.melee.size</name><op>+</op></source>
+			<source><name>attackbonus.melee.misc</name><op>+</op></source>
+			<ability><source>attackbonus.melee.ability</source><default>kom</default></ability>
+		</number_charattacktotal>
+	</template>
+	<template name="number_charrangedtotal">
+		<number_charattacktotal>
+			<description><textres>char_tooltip_atkranged</textres></description>
+			<modifierfield>attackbonus.ranged.temporary</modifierfield>
+			<source><name>attackbonus.base</name><op>+</op></source>
+			<source><name>attackbonus.ranged.size</name><op>+</op></source>
+			<source><name>attackbonus.ranged.misc</name><op>+</op></source>
+			<ability><source>attackbonus.ranged.ability</source><default>kom</default></ability>
+		</number_charattacktotal>
+	</template>
+	<template name="number_chargrappletotal">
+		<number_chartotalwithability>
+			<rollable />
+			<displaysign />
+			<modifiersize>mini</modifiersize>
+			<description><text>Grapple</text></description>
+			<modifierfield>attackbonus.grapple.temporary</modifierfield>
+			<source><name>attackbonus.base</name><op>+</op></source>
+			<source><name>attackbonus.grapple.size</name><op>+</op></source>
+			<source><name>attackbonus.grapple.misc</name><op>+</op></source>
+			<ability><source>attackbonus.grapple.ability</source><default>kom</default></ability>
+			<script>
+				function action(draginfo)
+					local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
+					local rAttack = CharManager.getGrappleRollStructures(rActor, "");
+
+					ActionAttack.performGrappleRoll(draginfo, rActor, rAttack);
+					return true;
+				end
+
+				function onDragStart(button, x, y, draginfo)
+					return action(draginfo);
+				end
+
+				function onDoubleClick(x,y)
+					return action();
+				end
+			</script>
+		</number_chartotalwithability>
+	</template>
+
+	<template name="number_charweaponattacktotal">
+		<number_linked>
+			<displaysign />
+			<source><name>type</name></source>
+			<source><string /><name>attackstat</name></source>
+			<source><name>bonus</name><op>+</op></source>
+			<source><name>...attackbonus.base</name></source>
+			<source><name>...attackbonus.melee.ability</name></source>
+			<source><name>...attackbonus.melee.size</name></source>
+			<source><name>...attackbonus.melee.misc</name></source>
+			<source><name>...attackbonus.melee.temporary</name></source>
+			<source><name>...attackbonus.ranged.ability</name></source>
+			<source><name>...attackbonus.ranged.size</name></source>
+			<source><name>...attackbonus.ranged.misc</name></source>
+			<source><name>...attackbonus.ranged.temporary</name></source>
+			<source><name>...abilities.strength.bonus</name></source>
+			<source><name>...abilities.dexterity.bonus</name></source>
+			<source><name>...abilities.constitution.bonus</name></source>
+			<source><name>...abilities.intelligence.bonus</name></source>
+			<source><name>...abilities.wisdom.bonus</name></source>
+			<source><name>...abilities.charisma.bonus</name></source>
+			<script file="campaign/scripts/char_weaponattack.lua" />
+		</number_linked>
+	</template>
+
+
+	<!-- Ported from 4e with changes -->
+	<template name="number_linked_ability">
+		<number_linked>
+			<anchored position="right" offset="8,0" width="28" />
+			<frame name="fieldlight" offset="7,5,7,5" />
+			<displaysign />
+			<nodrag />
+			<baseability mergerule="resetandadd" />
+			<script><![CDATA[
+				local sAbility = "";
+				function onInit()
+					if super.onInit then
+						super.onInit();
+					end
+
+					local nodeChar = window.getDatabaseNode();
+					DB.addHandler(DB.getPath(nodeChar, "abilities"), "onChildUpdate", onStatUpdate);
+					DB.addHandler(DB.getPath(nodeChar, selectfield[1]), "onUpdate", onStatUpdate);
+
+					onStatUpdate();
+				end
+
+				function onClose()
+					local nodeChar = window.getDatabaseNode();
+					DB.removeHandler(DB.getPath(nodeChar, "abilities"), "onChildUpdate", onStatUpdate);
+					DB.removeHandler(DB.getPath(nodeChar, selectfield[1]), "onUpdate", onStatUpdate);
+				end
+
+				function onStatUpdate()
+					local nodeChar = window.getDatabaseNode();
+
+					local sAbility = DB.getValue(nodeChar, selectfield[1], "");
+					if sAbility ~= "" then
+						setValue(DB.getValue(nodeChar, "abilities." .. sAbility .. ".bonus", 0));
+						return;
+					end
+
+					local abilityBonuses = {}
+					for _,v in ipairs(baseability) do
+						table.insert(abilityBonuses, DB.getValue(nodeChar, "abilities." .. v .. ".bonus", 0));
+					end
+					setValue(math.max(unpack(abilityBonuses)));
+				end
+				function updateAbility(sCharRelative, sValue)
+					sAbility = sValue;
+					onStatUpdate()
+				end
+			]]></script>
+		</number_linked>
+	</template>
+
+	<!-- Custom -->
+	<template name="number_linked_save_base">
+		<number_linked>
+			<anchored position="right"  offset="8,0" width="28" />
+			<displaysign />
+			<readonly />
+			<frame name="fieldlight" offset="7,5,7,5" />
+			<script><![CDATA[
+				function onInit()
+					addSourceWithOp(valueSource(), "+");
+					addSource(typeSource(), "string")
+
+					super.onInit();
+				end
+
+				function onSourceUpdate()
+					local nodeWin  = window.getDatabaseNode();
+					local save_type = DB.getValue(nodeWin, typeSource(), 'poor');
+					if save_type == "" then
+						save_type = "poor"
+					end
+					local level = calculateSources()
+					setValue(DataCommon.saves[save_type][level])
+				end
+
+				function valueSource()
+					return "level"
+				end
+
+				function typeSource()
+					return "saves." .. save_type[1] .. ".type"
+				end
+			]]></script>
+		</number_linked>
+	</template>
+
 </root>

@@ -70,6 +70,10 @@
 				<bounds>0,65,-1,-20</bounds>
 				<class>charsheet_custom</class>
 			</subwindow>
+			<subwindow name="core_abilities">
+				<bounds>0,65,-1,-20</bounds>
+				<class>charsheet_core_abilities</class>
+			</subwindow>
 			<subwindow name="abilities">
 				<bounds>0,65,-1,-20</bounds>
 				<class>charsheet_abilities</class>
@@ -103,6 +107,10 @@
 				<tab>
 					<icon>tab_abilities</icon>
 					<subwindow>custom</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_abilities</icon>
+					<subwindow>core_abilities</subwindow>
 				</tab>
 				<tab>
 					<icon>tab_abilities</icon>

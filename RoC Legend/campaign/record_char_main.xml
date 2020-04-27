@@ -272,40 +272,6 @@
 				<static textres="char_label_hp_remaining" />
 			</string_char_ability_label>
 
-			<!-- BAB -->
-			<frame_char name="babframe">
-				<bounds>-105,45,80,145</bounds>
-			</frame_char>
-
-			<string_char_ability_label name="bab_label">
-				<anchored to="babframe" position="insidetopleft" offset="20,10" />
-				<static textres="bab" />
-			</string_char_ability_label>
-
-			<cycler_goodpoor name="attackbonus.type">
-				<anchored to="bab_label" position="belowleft" offset="0,0" width="32" height="20" />
-			</cycler_goodpoor>
-
-			<number_linked name="attackbonus.base">
-				<anchored to="attackbonus.type" position="belowleft" offset="0,10" width="32" height="20" />
-				<displaysign />
-				<readonly />
-				<frame name="fieldlight" offset="7,5,7,5" />
-				<source><op>+</op><name>level</name></source>
-				<source><name>attackbonus.type</name></source>
-				<script><![CDATA[
-					function onSourceUpdate()
-						local nodeWin  = window.getDatabaseNode();
-						local bab_type = DB.getValue(nodeWin, "attackbonus.type", 'poor');
-						if bab_type == "" then
-							bab_type = "poor"
-						end
-						local level = calculateSources()
-						setValue(DataCommon.bab[bab_type][level])
-					end
-				]]></script>
-			</number_linked>
-
 		</sheetdata>
 	</windowclass>
 

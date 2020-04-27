@@ -28,12 +28,16 @@
 
 	<includefile source="campaign/record_char.xml" />
 	<includefile source="campaign/record_char_main.xml" />
+	<includefile source="campaign/record_char_combat.xml" />
+	<includefile source="campaign/record_char_core_abilities.xml" />
 	<includefile source="campaign/record_char_custom.xml" />
 	<includefile source="campaign/record_char_skills.xml" />
+	<includefile source="campaign/record_char_actions.xml" />
 	<includefile source="campaign/record_table.xml" />
 
 	<script name="CharManager" file="campaign/scripts/manager_char.lua" />
 
 	<!-- High-level scripts -->
 	<script name="DataCommon" file="scripts/data_common.lua" />
+	<script name="ActorManager2" file="scripts/manager_actor2.lua" />
 </root>
