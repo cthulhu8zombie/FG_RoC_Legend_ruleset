@@ -32,8 +32,10 @@
 	<includefile source="campaign/record_char_core_abilities.xml" />
 	<includefile source="campaign/record_char_custom.xml" />
 	<includefile source="campaign/record_char_skills.xml" />
+	<includefile source="campaign/record_char_tracks.xml" />
 	<includefile source="campaign/record_char_actions.xml" />
 	<includefile source="campaign/record_table.xml" />
+	<includefile source="campaign/record_track_circle.xml" />
 
 	<script name="CharManager" file="campaign/scripts/manager_char.lua" />
 

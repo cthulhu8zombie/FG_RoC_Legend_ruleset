@@ -74,11 +74,13 @@ track_progression = {
 	medium = { 1, 4, 7, 10, 13, 16, 19 },
 	slow   = { 2, 5, 8, 11, 14, 17, 20 },
 }
+track_progression.full_buy = track_progression.medium
 track_progression_circle_count = {
 	fast   = { 1, 1, 2, 2, 2, 3, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 7, 7, 7 },
 	medium = { 1, 1, 1, 2, 2, 2, 3, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 7, 7 },
 	slow   = { 0, 1, 1, 1, 2, 2, 2, 3, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 7 },
 }
+track_progression_circle_count.full_buy = track_progression_circle_count.medium
 
 -- Magic items
 magic_items_by_type = {

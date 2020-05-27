@@ -58,16 +58,16 @@
 				<static textres="char_label_combatability" />
 			</label_fieldtop>
 
-			<number_charcombatabilitymod name="acbab" source="attackbonus.base">
+			<number_charcombatabilitymod name="aclevel" source="level">
 				<anchored to="acstatmod" offset="2,0" />
 			</number_charcombatabilitymod>
-			<label_fieldtop name="acstatmod_label">
-				<anchored to="acbab" />
-				<static textres="bab" />
+			<label_fieldtop name="aclevel_label">
+				<anchored to="aclevel" />
+				<static textres="level" />
 			</label_fieldtop>
 
 			<number_charcombatmod name="acsize" source="ac.sources.size">
-				<anchored to="acbab" />
+				<anchored to="aclevel" />
 			</number_charcombatmod>
 			<label_fieldtop name="acsize_label">
 				<anchored to="acsize" />

@@ -227,31 +227,34 @@
 				<static textres="char_label_hp_max" />
 			</string_char_ability_label>
 
-			<number_char_ability_score name="temp_hp" source="hp.temporary">
-				<anchored to="max_hp" width="36" />
+			<basicnumber name="temp_hp" source="hp.temporary">
+				<frame name="fielddark" offset="7,5,7,5" />
+				<anchored to="max_hp" position="belowleft" offset="0,10" width="36" height="22" />
 				<description textres="char_tooltip_temp_hp" />
 				<default>0</default>
-			</number_char_ability_score>
+			</basicnumber>
 			<string_char_ability_label name="temp_hp_label">
 				<anchored to="temp_hp" />
 				<static textres="char_label_hp_temp" />
 			</string_char_ability_label>
 
-			<number_char_ability_score name="hp_reduction" source="hp.reduction">
-				<anchored to="temp_hp" width="36" />
-				<description textres="char_tooltip_hp_reduction" />
+			<basicnumber name="hp_reduction" source="hp.reduction">
+				<frame name="fielddark" offset="7,5,7,5" />
+				<anchored to="temp_hp" position="belowleft" offset="0,10" width="36" height="22" />
+				<description textres="char_tooltip_temp_hp" />
 				<default>0</default>
-			</number_char_ability_score>
+			</basicnumber>
 			<string_char_ability_label name="hp_reduction_label">
 				<anchored to="hp_reduction" />
 				<static textres="char_label_hp_reduction" />
 			</string_char_ability_label>
 
-			<number_char_ability_score name="hp_damage" source="hp.wounds">
-				<anchored to="hp_reduction" width="36" />
-				<description textres="char_tooltip_hp_damage" />
+			<basicnumber name="hp_damage" source="hp.wounds">
+				<frame name="fielddark" offset="7,5,7,5" />
+				<anchored to="hp_reduction" position="belowleft" offset="0,10" width="36" height="22" />
+				<description textres="char_tooltip_temp_hp" />
 				<default>0</default>
-			</number_char_ability_score>
+			</basicnumber>
 			<string_char_ability_label name="hp_damage_label">
 				<anchored to="hp_damage" />
 				<static textres="char_label_hp_damage" />
@@ -271,6 +274,48 @@
 				<anchored to="hp_remaining" />
 				<static textres="char_label_hp_remaining" />
 			</string_char_ability_label>
+
+			<!-- Saves -->
+			<frame_char name="saveframe">
+				<bounds>415,45,80,185</bounds>
+			</frame_char>
+			<number_charsavefort name="fortitude" source="saves.fortitude.total">
+				<anchored to="saveframe" position="insidetop" offset="-25,27" height="22" />
+			</number_charsavefort>
+			<label_fieldtop name="fortitude_label">
+				<anchored to="fortitude" offset="8,1" />
+				<static textres="fortitude" />
+			</label_fieldtop>
+			<number_charsaveref name="reflex" source="saves.reflex.total">
+				<anchored to="fortitude" position="below" offset="0,18" height="22" />
+			</number_charsaveref>
+			<label_fieldtop name="reflex_label">
+				<anchored to="reflex" />
+				<static textres="reflex" />
+			</label_fieldtop>
+			<number_charsavewill name="will" source="saves.will.total">
+				<anchored to="reflex" position="below" offset="0,18" height="22" />
+			</number_charsavewill>
+			<label_fieldtop name="will_label">
+				<anchored to="will" />
+				<static textres="will_long" />
+			</label_fieldtop>
+
+
+			<!-- Defenses -->
+			<frame_char name="acframe">
+				<bounds>245,230,250,100</bounds>
+			</frame_char>
+			<number_chartotalac name="ac" source="ac.totals.general">
+				<anchored to="acframe" position="insidetopleft" offset="25,30" width="30" height="28" />
+				<frame name="acicon" />
+			</number_chartotalac>
+			<label_fieldtop name="ac_label">
+				<anchored to="ac" offset="0,3" />
+				<static textres="ac" />
+			</label_fieldtop>
+
+
 
 		</sheetdata>
 	</windowclass>

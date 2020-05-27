@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!--
+  Please see the license.html file included with this distribution for
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_tracks">
+		<sheetdata>
+
+			<frame_char name="trackframe">
+				<bounds>15,25,-25,-5</bounds>
+			</frame_char>
+
+			<subwindow name="all_tracks">
+				<bounds>25,30,-35,-10</bounds>
+				<class>charsheet_all_tracks</class>
+			</subwindow>
+			<subwindow name="medium_track">
+				<bounds>25,30,-35,-10</bounds>
+				<class>charsheet_medium_track</class>
+			</subwindow>
+			<subwindow name="slow_track">
+				<bounds>25,30,-35,-10</bounds>
+				<class>charsheet_slow_track</class>
+			</subwindow>
+			<subwindow name="fast_track">
+				<bounds>25,30,-35,-10</bounds>
+				<class>charsheet_fast_track</class>
+			</subwindow>
+			<subwindow name="full_buy_track">
+				<bounds>25,30,-35,-10</bounds>
+				<class>charsheet_full_buy_track</class>
+			</subwindow>
+
+			<buttongroup_tabs_h name="tabs">
+				<anchored to="trackframe" position="aboveleft" offset="15,-5" height="18"/>
+				<activate>1</activate>
+				<tab>
+					<textres>tab_all_tracks</textres>
+					<subwindow>all_tracks</subwindow>
+				</tab>
+				<tab>
+					<textres>tab_medium_track</textres>
+					<subwindow>medium_track</subwindow>
+				</tab>
+				<tab>
+					<textres>tab_slow_track</textres>
+					<subwindow>slow_track</subwindow>
+				</tab>
+				<tab>
+					<textres>tab_fast_track</textres>
+					<subwindow>fast_track</subwindow>
+				</tab>
+<!--
+				<tab>
+					<textres>tab_full_buy_track</textres>
+					<subwindow>full_buy_track</subwindow>
+				</tab>
+-->
+			</buttongroup_tabs_h>
+			<label name="use_full_buy_label">
+				<anchored to="trackframe" position="aboveright" offset="20,-5" />
+				<static textres="char_label_use_full_buy" />
+			</label>
+			<button_checkbox name="use_full_buy">
+				<anchored to="use_full_buy_label" position="left" offset="0,0" width="16"/>
+				<script><![CDATA[
+					function onInit()
+						if super and super.onInit then
+							super.onInit()
+						end
+						updateTabs(false)
+					end
+					function onValueChanged(keepSelection)
+						updateTabs(true)
+					end
+					function updateTabs(selectTab)
+						local value = getValue();
+						if value > 0 then
+							window.tabs.addTab('full_buy_track', Interface.getString('tab_full_buy_track'), selectTab)
+						else
+							if window.tabs.getIndex() == 5 then
+								window.tabs.activateTab(1)
+							end
+							window.tabs.setTab(5, nil, nil)
+						end
+					end
+				]]></script>
+			</button_checkbox>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="charsheet_all_tracks">
+		<sheetdata>
+			<track_header>
+			</track_header>
+			<track_circle_list>
+				<script file="campaign/scripts/char_track_circlesummary.lua" />
+			</track_circle_list>
+			<track_circle_list_scrollbar/>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="charsheet_medium_track">
+		<sheetdata>
+			<track_header>
+				<progression>medium</progression>
+			</track_header>
+			<track_circle_list>
+				<progression>medium</progression>
+			</track_circle_list>
+			<track_circle_list_scrollbar/>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="charsheet_slow_track">
+		<sheetdata>
+			<track_header>
+				<progression>slow</progression>
+			</track_header>
+			<track_circle_list>
+				<progression>slow</progression>
+			</track_circle_list>
+			<track_circle_list_scrollbar/>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="charsheet_fast_track">
+		<sheetdata>
+			<track_header>
+				<progression>fast</progression>
+			</track_header>
+			<track_circle_list>
+				<progression>fast</progression>
+			</track_circle_list>
+			<track_circle_list_scrollbar/>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="charsheet_full_buy_track">
+		<sheetdata>
+			<track_header>
+				<progression>full_buy</progression>
+			</track_header>
+			<track_circle_list>
+				<progression>full_buy</progression>
+			</track_circle_list>
+			<track_circle_list_scrollbar/>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="charsheet_track_header">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top  offset="20"/>
+					<right />
+				</anchored>
+			</genericcontrol>
+
+
+			<!-- fields to the left of the expanding name field -->
+			<label name="circlelabel">
+				<bounds>2,22,40,22</bounds>
+				<static textres="char_label_circle_circle" />
+				<center />
+			</label>
+			<label name="levellabel">
+				<bounds>42,22,40,22</bounds>
+				<static textres="char_label_circle_level" />
+				<center />
+			</label>
+
+			<!-- items to the right of the expanding name field (inclusive) need to be defined from right to left -->
+			<label name="editlabel">
+				<anchored width="20" height="20">
+					<top offset="22" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<static textres="char_label_circle_edit" />
+				<center />
+			</label>
+			<label name="ability_typelabel">
+				<anchored width="60" height="20">
+					<top offset="22" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<static textres="char_label_circle_ability_type" />
+			</label>
+			<label name="namelabel">
+				<anchored height="20">
+					<top offset="22" />
+					<left parent="levellabel" anchor="right" offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<static textres="char_label_circle_name" />
+			</label>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="charsheet_circle_row">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<hs name="track"/>
+
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+			</genericcontrol>
+
+			<!-- fields to the left of the expanding name field -->
+			<numberfield name="circle">
+				<bounds>2,2,40,22</bounds>
+				<readonly/>
+			</numberfield>
+			<numberfield name="level">
+				<bounds>42,2,40,22</bounds>
+				<readonly/>
+			</numberfield>
+
+			<!-- items to the right of the expanding name field (inclusive) need to be defined from right to left -->
+			<linkcontrol name="shortcut">
+				<anchored width="20" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<class>reference_track_circle</class>
+				<readonly />
+			</linkcontrol>
+			<stringu name="ability_type">
+				<anchored width="60" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</stringu>
+			<stringu name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left parent="level" anchor="right" offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</stringu>
+
+			<!-- additional fields -->
+			<formattedtextfield name="description">
+				<invisible />
+				<bounds>2,2,12,20</bounds>
+			</formattedtextfield>
+			<!-- ablities -->
+
+
+		</sheetdata>
+	</windowclass>
+
+</root>

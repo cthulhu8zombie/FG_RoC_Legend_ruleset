@@ -46,6 +46,7 @@
 	<template name="number_char_ability_score">
 		<basicnumber>
 			<anchored position="belowleft" offset="0,10" width="32" height="22" />
+			<frame name="fieldlight" offset="7,5,7,5" />
 			<default>10</default>
 			<readonly/>
 		</basicnumber>
@@ -325,7 +326,7 @@
 			<source><op>+</op><name>ac.sources.armor</name></source>
 			<source><op>+</op><name>ac.sources.shield</name></source>
 			<source><op>+</op><name>ac.sources.abilitymod</name></source>
-			<source><op>+</op><name>attackbonus.base</name></source>
+			<source><op>+</op><name>level</name></source>
 			<source><op>+</op><name>ac.sources.size</name></source>
 			<source><op>+</op><name>ac.sources.deflection</name></source>
 			<source><op>+</op><name>ac.sources.misc</name></source>
@@ -549,6 +550,46 @@
 				end
 			]]></script>
 		</number_linked>
+	</template>
+
+	<template name="track_header">
+		<subwindow name="track_header">
+			<anchored>
+				<top offset="2" />
+				<left />
+				<right offset="-15" />
+			</anchored>
+			<activate />
+			<fastinit />
+			<class>charsheet_track_header</class>
+		</subwindow>
+	</template>
+
+	<template name="track_circle_list">
+		<windowlist name="track_circlelist">
+			<anchored position="over" offset="-2,-2">
+				<top offset="40" />
+				<right offset="-15" />
+			</anchored>
+			<child></child>
+			<child><backcolor>1A40301E</backcolor></child>
+			<datasource>.circlelist</datasource>
+			<class>charsheet_circle_row</class>
+<!--
+				<sortby>
+					<field desc="true">skill_group</field>
+					<control>label</control>
+				</sortby>
+-->
+			<script file="campaign/scripts/char_track_circlelist.lua" />
+		</windowlist>
+	</template>
+
+	<template name="track_circle_list_scrollbar">
+		<scrollbar name="track_circlelist_scrollbar">
+			<anchored to="track_circlelist" />
+			<target>track_circlelist</target>
+		</scrollbar>
 	</template>
 
 </root>

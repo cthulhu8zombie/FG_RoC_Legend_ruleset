@@ -41,6 +41,8 @@
 
 	<string name="char_label_misc">Misc</string>
 
+	<string name="char_label_use_full_buy">Use Full Buy</string>
+
 	<string name="edit_hp">Edit HP</string>
 
 	<string name="kom">KOM</string>
@@ -52,5 +54,17 @@
 	<string name="perception">Perception</string>
 
 	<string name="class_label_save_poor">Poor</string>
+
+	<string name="tab_all_tracks">All</string>
+	<string name="tab_fast_track">Fast</string>
+	<string name="tab_medium_track">Medium</string>
+	<string name="tab_slow_track">Slow</string>
+	<string name="tab_full_buy_track">Full Buy</string>
+
+	<string name="char_label_circle_circle">Circle</string>
+	<string name="char_label_circle_level">Level</string>
+	<string name="char_label_circle_name">Circle Name</string>
+	<string name="char_label_circle_ability_type">Type</string>
+	<string name="char_label_circle_edit">Edit</string>
 
 </root>

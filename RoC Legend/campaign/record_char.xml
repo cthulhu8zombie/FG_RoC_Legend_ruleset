@@ -62,6 +62,10 @@
 				<bounds>0,65,-1,-20</bounds>
 				<class>charsheet_combat</class>
 			</subwindow>
+			<subwindow name="tracks">
+				<bounds>0,65,-1,-20</bounds>
+				<class>charsheet_tracks</class>
+			</subwindow>
 			<subwindow name="skills">
 				<bounds>0,65,-1,-20</bounds>
 				<class>charsheet_skills</class>
@@ -101,16 +105,12 @@
 					<subwindow>combat</subwindow>
 				</tab>
 				<tab>
+					<icon>tab_tracks</icon>
+					<subwindow>tracks</subwindow>
+				</tab>
+				<tab>
 					<icon>tab_skills</icon>
 					<subwindow>skills</subwindow>
-				</tab>
-				<tab>
-					<icon>tab_abilities</icon>
-					<subwindow>custom</subwindow>
-				</tab>
-				<tab>
-					<icon>tab_abilities</icon>
-					<subwindow>core_abilities</subwindow>
 				</tab>
 				<tab>
 					<icon>tab_abilities</icon>
@@ -121,12 +121,22 @@
 					<subwindow>inventory</subwindow>
 				</tab>
 				<tab>
+					<icon>tab_actions</icon>
+					<subwindow>actions</subwindow>
+				</tab>
+				<tab>
 					<icon>tab_notes</icon>
 					<subwindow>notes</subwindow>
 				</tab>
+
+				<!-- Reference and fallback -->
 				<tab>
-					<icon>tab_actions</icon>
-					<subwindow>actions</subwindow>
+					<icon>tab_abilities</icon>
+					<subwindow>custom</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_abilities</icon>
+					<subwindow>core_abilities</subwindow>
 				</tab>
 				<activate>1</activate>
 			</tabs_charsheet>

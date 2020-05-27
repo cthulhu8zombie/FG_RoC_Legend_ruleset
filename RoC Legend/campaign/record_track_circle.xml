@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!--
+  Please see the license.html file included with this distribution for
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="reference_track_circle">
+		<frame>referencepage</frame>
+		<placement>
+			<size width="400" height="350" />
+		</placement>
+		<sizelimits>
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<tooltip field="name" />
+		<nodelete />
+		<playercontrol />
+		<sharable />
+		<script>
+			function onLockChanged()
+				if header.subwindow then
+					header.subwindow.update();
+				end
+				if content.subwindow then
+					content.subwindow.update();
+				end
+			end
+		</script>
+		<sheetdata>
+			<close_referencepage />
+			<resize_referencepage />
+
+			<sub_ref_header name="header">
+				<class>ref_track_circle_header</class>
+			</sub_ref_header>
+
+			<frame_ref_content />
+
+			<sub_ref_content name="content">
+				<class>ref_track_circle_details</class>
+			</sub_ref_content>
+			<scrollbar_ref_content />
+		</sheetdata>
+	</windowclass>
+
+
+
+	<windowclass name="ref_track_circle_header">
+		<margins control="0,0,0,7" />
+		<script>
+			function onInit()
+				update();
+			end
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				name.setReadOnly(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<link_record_header>
+				<class>reference_track_circle</class>
+			</link_record_header>
+
+			<anchor_record_header_right />
+			<icon_record_locked />
+			<button_record_locked />
+
+			<string_record_name name="name">
+				<empty textres="library_recordtype_empty_track_circle" />
+			</string_record_name>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="ref_track_circle_details">
+		<script><![CDATA[
+			function onInit()
+				update();
+			end
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+
+				circle.update(bReadOnly);
+				ability_type.update(bReadOnly);
+				description.update(bReadOnly);
+			end
+		]]></script>
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+
+			<label_column name="circle_label">
+				<static textres="char_label_circle_circle" />
+			</label_column>
+			<number_columnh name="circle" />
+<!--
+			<label_column name="level_label">
+				<static textres="char_label_circle_level" />
+			</label_column>
+			<number_columnh name="level" />
+-->
+			<label_column name="ability_type_label">
+				<static textres="char_label_circle_ability_type" />
+			</label_column>
+			<string_columnh name="ability_type" />
+
+			<ft_columnh name="description" />
+		</sheetdata>
+	</windowclass>
+</root>
